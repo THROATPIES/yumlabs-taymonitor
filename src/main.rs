@@ -14,7 +14,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let mut stream = TwitchCommentStream::new(TWITCH_CHANNEL.to_string());
   stream.connect().await?;
   let mut clips: Vec<ClipComment> = Vec::new();
- 
+  let secondary_url: &str = "https://clips.twitch.tv/";
   while let Ok(comment) = stream.next().await {
     if comment.body.contains(TWITCH_URL) && !clips.contains(&ClipComment { body: comment.body.clone() }) {
       clips.push(ClipComment { body: String::from(&comment.body)});
